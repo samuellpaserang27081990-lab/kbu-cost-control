@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#1265ed">
+
+  <title>KBU Cost Control Pro</title>
+
+  <style>
+    *{
+      box-sizing:border-box;
+    }
+
+    body{
+      margin:0;
+      font-family:Arial,sans-serif;
+      background:#edf4ff;
+      color:#172033;
+      padding-bottom:95px;
+    }
+
+    .header{
+      background:linear-gradient(135deg,#073c7a,#1265ed);
+      color:white;
+      padding:32px 24px 38px;
+      border-radius:0 0 32px 32px;
+    }
+
+    .header h1{
+      margin:0;
+      font-size:30px;
+    }
+
+    .header p{
+      margin:10px 0 0;
+      font-size:17px;
+      opacity:.9;
+    }
+
+    .badge{
+      display:inline-block;
+      margin-top:16px;
+      background:#d9ffe9;
+      color:#12643b;
+      padding:9px 15px;
+      border-radius:30px;
+      font-weight:bold;
+    }
+
+    .container{
+      padding:20px;
+    }
+
+    .card{
+      background:white;
+      padding:22px;
+      border-radius:22px;
+      margin-bottom:20px;
+      box-shadow:0 6px 20px rgba(21,54,93,.09);
+    }
+
+    .card h2{
+      margin-top:0;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:14px;
+    }
+
+    .item{
+      background:#f2f6ff;
+      padding:18px 10px;
+      border-radius:17px;
+      text-align:center;
+    }
+
+    .item small{
+      display:block;
+      margin-bottom:9px;
+      color:#586477;
+    }
+
+    .item strong{
+      font-size:19px;
+    }
+
+    .profit{
+      color:#0d8a3c;
+    }
+
+    label{
+      display:block;
+      font-weight:bold;
+      margin:16px 0 7px;
+    }
+
+    input{
+      width:100%;
+      padding:15px;
+      border:1px solid #cbd5e1;
+      border-radius:13px;
+      font-size:16px;
+      background:white;
+    }
+
+    .primary{
+      width:100%;
+      margin-top:20px;
+      padding:15px;
+      border:0;
+      border-radius:14px;
+      background:#1265ed;
+      color:white;
+      font-size:17px;
+      font-weight:bold;
+    }
+
+    .secondary{
+      width:100%;
+      margin-top:10px;
+      padding:13px;
+      border:1px solid #cbd5e1;
+      border-radius:14px;
+      background:white;
+      color:#183153;
+      font-size:16px;
+    }
+
+    .info{
+      background:#fff7e8;
+      border:1px solid #f5d69a;
+      padding:14px;
+      border-radius:14px;
+      color:#77500b;
+      margin-top:15px;
+    }
+
+    .page{
+      display:none;
+    }
+
+    .page.active{
+      display:block;
+    }
+
+    .menu{
+      position:fixed;
+      left:0;
+      right:0;
+      bottom:0;
+      display:flex;
+      justify-content:space-around;
+      background:white;
+      padding:10px 6px 16px;
+      box-shadow:0 -5px 20px rgba(0,0,0,.10);
+      z-index:20;
+    }
+
+    .menu button{
+      border:0;
+      background:transparent;
+      color:#667085;
+      padding:10px 12px;
+      font-size:14px;
+      border-radius:13px;
+    }
+
+    .menu button.active{
+      background:#e7f0ff;
+      color:#1265ed;
+      font-weight:bold;
+    }
+
+    .empty{
+      text-align:center;
+      color:#7a8494;
+      padding:25px 10px;
+    }
+
+    @media(max-width:380px){
+      .header h1{
+        font-size:25px;
+      }
+
+      .menu button{
+        font-size:12px;
+        padding:9px 7px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header class="header">
+    <h1>KBU Cost Control</h1>
+    <p>Dashboard Direktur</p>
+    <div class="badge">V1.1 • Data Proyek Aktif</div>
+  </header>
+
+  <main class="container">
+
+    <section id="dashboardPage" class="page active">
+      <div class="card">
+        <h2>Dashboard Ringkas</h2>
+
+        <div class="grid">
+          <div class="item">
+            <small>Nilai Kontrak</small>
+            <strong id="nilaiKontrak">Rp0</strong>
+          </div>
+
+          <div class="item">
+            <small>Target Tonase</small>
+            <strong id="targetTonase">0 Ton</strong>
+          </div>
+
+          <div class="item">
+            <small>Budget HPP</small>
+            <strong id="budgetHpp">Rp0</strong>
+          </div>
+
+          <div class="item">
+            <small>Profit Rencana</small>
+            <strong class="profit" id="profitRencana">Rp0</strong>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Proyek Aktif</h2>
+        <div id="projectSummary" class="empty">
+          Belum ada data proyek. Buka menu Proyek untuk mengisi data.
+        </div>
+      </div>
+    </section>
+
+    <section id="projectPage" class="page">
+      <div class="card">
+        <h2>Data Proyek & Kontrak</h2>
+
+        <label>Nama Proyek</label>
+        <input id="namaProyek" placeholder="Contoh: Loading Ban Maloy–Cilegon">
+
+        <label>Pemberi Kerja / Klien</label>
+        <input id="klien" placeholder="Contoh: Mr Chen">
+
+        <label>Nomor Kontrak</label>
+        <input id="nomorKontrak" placeholder="Contoh: 001/KBU/VII/2026">
+
+        <label>Target Tonase</label>
+        <input id="tonase" type="number" inputmode="decimal" placeholder="Contoh: 3000">
+
+        <label>Harga Jual per Ton</label>
+        <input id="hargaJual" type="number" inputmode="numeric" placeholder="Contoh: 1015000">
+
+        <label>Target Profit</label>
+        <input id="targetProfit" type="number" inputmode="numeric" placeholder="Contoh: 250000000">
+
+        <div class="info">
+          Nilai kontrak dihitung otomatis dari target tonase × harga jual per ton.
+        </div>
+
+        <button class="primary" onclick="simpanProyek()">Simpan Data Proyek</button>
+        <button class="secondary" onclick="hapusProyek()">Hapus Data Proyek</button>
+      </div>
+    </section>
+
+    <section id="hppPage" class="page">
+      <div class="card">
+        <h2>Budget HPP</h2>
+        <div class="empty">
+          Modul Budget HPP akan kita aktifkan pada tahap berikutnya.
+        </div>
+      </div>
+    </section>
+
+    <section id="realisasiPage" class="page">
+      <div class="card">
+        <h2>Realisasi Biaya</h2>
+        <div class="empty">
+          Modul realisasi dan tracking selisih akan dibuat setelah Budget HPP.
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <nav class="menu">
+    <button id="btnDashboard" class="active" onclick="bukaHalaman('dashboard')">Dashboard</button>
+    <button id="btnProject" onclick="bukaHalaman('project')">Proyek</button>
+    <button id="btnHpp" onclick="bukaHalaman('hpp')">HPP</button>
+    <button id="btnRealisasi" onclick="bukaHalaman('realisasi')">Realisasi</button>
+  </nav>
+
+  <script>
+    const rupiah = angka =>
+      new Intl.NumberFormat("id-ID",{
+        style:"currency",
+        currency:"IDR",
+        maximumFractionDigits:0
+      }).format(angka || 0);
+
+    function bukaHalaman(nama){
+      document.querySelectorAll(".page").forEach(page =>
+        page.classList.remove("active")
+      );
+
+      document.querySelectorAll(".menu button").forEach(button =>
+        button.classList.remove("active")
+      );
+
+      const mapping = {
+        dashboard:["dashboardPage","btnDashboard"],
+        project:["projectPage","btnProject"],
+        hpp:["hppPage","btnHpp"],
+        realisasi:["realisasiPage","btnRealisasi"]
+      };
+
+      document.getElementById(mapping[nama][0]).classList.add("active");
+      document.getElementById(mapping[nama][1]).classList.add("active");
+
+      window.scrollTo({
+        top:0,
+        behavior:"smooth"
+      });
+    }
+
+    function simpanProyek(){
+      const data = {
+        namaProyek:document.getElementById("namaProyek").value.trim(),
+        klien:document.getElementById("klien").value.trim(),
+        nomorKontrak:document.getElementById("nomorKontrak").value.trim(),
+        tonase:Number(document.getElementById("tonase").value || 0),
+        hargaJual:Number(document.getElementById("hargaJual").value || 0),
+        targetProfit:Number(document.getElementById("targetProfit").value || 0)
+      };
+
+      if(!data.namaProyek){
+        alert("Nama proyek wajib diisi.");
+        return;
+      }
+
+      if(data.tonase <= 0 || data.hargaJual <= 0){
+        alert("Tonase dan harga jual wajib diisi.");
+        return;
+      }
+
+      localStorage.setItem("kbu_project",JSON.stringify(data));
+
+      tampilkanData();
+
+      alert("Data proyek berhasil disimpan.");
+
+      bukaHalaman("dashboard");
+    }
+
+    function tampilkanData(){
+      const data = JSON.parse(
+        localStorage.getItem("kbu_project") || "null"
+      );
+
+      if(!data){
+        document.getElementById("nilaiKontrak").textContent = rupiah(0);
+        document.getElementById("targetTonase").textContent = "0 Ton";
+        document.getElementById("budgetHpp").textContent = rupiah(0);
+        document.getElementById("profitRencana").textContent = rupiah(0);
+        return;
+      }
+
+      const nilaiKontrak = data.tonase * data.hargaJual;
+      const estimasiBudget = nilaiKontrak - data.targetProfit;
+
+      document.getElementById("namaProyek").value = data.namaProyek || "";
+      document.getElementById("klien").value = data.klien || "";
+      document.getElementById("nomorKontrak").value = data.nomorKontrak || "";
+      document.getElementById("tonase").value = data.tonase || "";
+      document.getElementById("hargaJual").value = data.hargaJual || "";
+      document.getElementById("targetProfit").value = data.targetProfit || "";
+
+      document.getElementById("nilaiKontrak").textContent =
+        rupiah(nilaiKontrak);
+
+      document.getElementById("targetTonase").textContent =
+        new Intl.NumberFormat("id-ID").format(data.tonase) + " Ton";
+
+      document.getElementById("budgetHpp").textContent =
+        rupiah(estimasiBudget);
+
+      document.getElementById("profitRencana").textContent =
+        rupiah(data.targetProfit);
+
+      document.getElementById("projectSummary").innerHTML = `
+        <strong style="font-size:19px">${data.namaProyek}</strong>
+        <p>Klien: ${data.klien || "-"}</p>
+        <p>Nomor Kontrak: ${data.nomorKontrak || "-"}</p>
+        <p>Harga Jual: ${rupiah(data.hargaJual)} / Ton</p>
+      `;
+    }
+
+    function hapusProyek(){
+      if(confirm("Hapus seluruh data proyek?")){
+        localStorage.removeItem("kbu_project");
+        location.reload();
+      }
+    }
+
+    tampilkanData();
+  </script>
+
+</body>
+      </html>
