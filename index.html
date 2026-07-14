@@ -1,10 +1,141 @@
 <!DOCTYPE html>
-<html>
+<html lang="id">
 <head>
-  <title>KBU Cost Control</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>KBU Cost Control Pro</title>
+
+<style>
+
+body{
+margin:0;
+font-family:Arial,sans-serif;
+background:#edf4ff;
+}
+
+.header{
+background:#1565ff;
+padding:35px;
+color:white;
+border-radius:0 0 25px 25px;
+}
+
+.header h1{
+margin:0;
+}
+
+.container{
+padding:20px;
+}
+
+.card{
+background:white;
+padding:20px;
+border-radius:18px;
+margin-bottom:20px;
+box-shadow:0 5px 20px rgba(0,0,0,.08);
+}
+
+.grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:15px;
+}
+
+.item{
+background:#f5f7ff;
+padding:15px;
+border-radius:15px;
+text-align:center;
+}
+
+.item h2{
+margin:5px;
+font-size:18px;
+}
+
+.menu{
+position:fixed;
+bottom:0;
+left:0;
+right:0;
+background:white;
+display:flex;
+justify-content:space-around;
+padding:15px;
+box-shadow:0 -5px 20px rgba(0,0,0,.1);
+}
+
+button{
+background:#1565ff;
+color:white;
+border:none;
+padding:12px 18px;
+border-radius:12px;
+}
+
+</style>
+
 </head>
+
 <body>
-  <h1>KBU Cost Control Pro V1</h1>
-  <p>Project berhasil dibuat.</p>
+
+<div class="header">
+
+<h1>KBU COST CONTROL</h1>
+
+<p>Dashboard Direktur</p>
+
+</div>
+
+<div class="container">
+
+<div class="card">
+
+<h2>Dashboard</h2>
+
+<div class="grid">
+
+<div class="item">
+Nilai Kontrak
+<h2>Rp3.045 M</h2>
+</div>
+
+<div class="item">
+Budget HPP
+<h2>Rp2.760 M</h2>
+</div>
+
+<div class="item">
+Realisasi
+<h2>Rp2.700 M</h2>
+</div>
+
+<div class="item">
+Profit
+<h2 style="color:green">
+Rp345 Jt
+</h2>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="menu">
+
+<button>Dashboard</button>
+
+<button>Proyek</button>
+
+<button>HPP</button>
+
+<button>Jurnal</button>
+
+</div>
+
 </body>
-</html>
+  </html>
