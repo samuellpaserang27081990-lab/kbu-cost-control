@@ -1,469 +1,1713 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#1265ed">
-<title>KBU Cost Control Pro V1.3</title>
-<style>
-*{box-sizing:border-box}
-:root{
-  --blue:#1265ed;--navy:#073c7a;--bg:#edf4ff;--text:#172033;
-  --muted:#667085;--green:#07883d;--red:#d52b2b;--yellow:#b87900;
-}
-body{margin:0;font-family:Arial,sans-serif;background:var(--bg);color:var(--text);padding-bottom:95px}
-.header{background:linear-gradient(135deg,var(--navy),var(--blue));color:#fff;padding:30px 22px 35px;border-radius:0 0 32px 32px}
-.header h1{margin:0;font-size:29px}.header p{margin:9px 0 0;opacity:.9}
-.badge{display:inline-block;margin-top:15px;background:#d9ffe9;color:#12643b;padding:8px 14px;border-radius:30px;font-weight:bold}
-.container{padding:18px}.card{background:#fff;padding:20px;border-radius:22px;margin-bottom:18px;box-shadow:0 6px 20px rgba(21,54,93,.09)}
-.card h2{margin-top:0}.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.item{background:#f2f6ff;padding:16px 8px;border-radius:16px;text-align:center;min-width:0}
-.item small{display:block;margin-bottom:8px;color:var(--muted)}.item strong{font-size:17px;overflow-wrap:anywhere}
-.green{color:var(--green)}.red{color:var(--red)}.yellow{color:var(--yellow)}
-label{display:block;font-weight:bold;margin:15px 0 7px}
-input,select,textarea{width:100%;padding:14px;border:1px solid #cbd5e1;border-radius:13px;font-size:16px;background:#fff}
-textarea{min-height:90px;resize:vertical}.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.primary,.secondary,.danger{width:100%;padding:14px;margin-top:14px;border-radius:13px;font-size:16px;font-weight:bold}
-.primary{border:0;background:var(--blue);color:#fff}.secondary{border:1px solid #cbd5e1;background:#fff;color:#183153}
-.danger{border:0;background:#fff0f0;color:#c62828}.info{background:#fff7e8;border:1px solid #f5d69a;padding:13px;border-radius:13px;color:#77500b;margin-top:14px}
-.page{display:none}.page.active{display:block}.row-card{border:1px solid #e1e7f0;border-radius:16px;padding:14px;margin-bottom:12px}
-.row-head{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}.row-title{font-weight:bold;font-size:17px}
-.row-total{font-weight:bold;color:var(--blue);text-align:right}.row-detail{color:var(--muted);font-size:14px;margin-top:7px;line-height:1.5}
-.small-delete{border:0;background:#fff0f0;color:#c62828;border-radius:9px;padding:8px 10px;margin-top:10px}
-.empty{text-align:center;color:#7a8494;padding:24px 8px}.status{display:inline-block;padding:5px 9px;border-radius:999px;font-size:12px;font-weight:bold;margin-top:7px}
-.status-green{background:#dcfce7;color:#166534}.status-yellow{background:#fef3c7;color:#92400e}.status-red{background:#fee2e2;color:#991b1b}
-.track-table{width:100%;border-collapse:collapse;font-size:13px}.track-table th,.track-table td{padding:10px 6px;border-bottom:1px solid #e5e7eb;text-align:left;vertical-align:top}
-.track-table th{color:#667085}.text-right{text-align:right!important}.scroll{overflow-x:auto}
-.menu{position:fixed;left:0;right:0;bottom:0;display:flex;justify-content:space-around;background:#fff;padding:9px 5px 15px;box-shadow:0 -5px 20px rgba(0,0,0,.10);z-index:20}
-.menu button{border:0;background:transparent;color:var(--muted);padding:10px 8px;font-size:12px;border-radius:13px}
-.menu button.active{background:#e7f0ff;color:var(--blue);font-weight:bold}
-@media(max-width:380px){.header h1{font-size:24px}.menu button{font-size:11px;padding:9px 5px}}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#1265ed">
+
+  <title>KBU Cost Control Pro</title>
+
+  <style>
+    *{
+      box-sizing:border-box;
+    }
+
+    :root{
+      --blue:#1265ed;
+      --navy:#073c7a;
+      --background:#edf4ff;
+      --text:#172033;
+      --muted:#667085;
+      --green:#07883d;
+      --red:#d52b2b;
+      --yellow:#b87900;
+    }
+
+    body{
+      margin:0;
+      font-family:Arial,sans-serif;
+      background:var(--background);
+      color:var(--text);
+      padding-bottom:95px;
+    }
+
+    .header{
+      background:linear-gradient(135deg,var(--navy),var(--blue));
+      color:white;
+      padding:30px 22px 35px;
+      border-radius:0 0 32px 32px;
+    }
+
+    .header h1{
+      margin:0;
+      font-size:29px;
+    }
+
+    .header p{
+      margin:9px 0 0;
+      opacity:.9;
+    }
+
+    .badge{
+      display:inline-block;
+      margin-top:15px;
+      background:#d9ffe9;
+      color:#12643b;
+      padding:8px 14px;
+      border-radius:30px;
+      font-weight:bold;
+    }
+
+    .container{
+      padding:18px;
+    }
+
+    .card{
+      background:white;
+      padding:20px;
+      border-radius:22px;
+      margin-bottom:18px;
+      box-shadow:0 6px 20px rgba(21,54,93,.09);
+    }
+
+    .card h2{
+      margin-top:0;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:12px;
+    }
+
+    .item{
+      background:#f2f6ff;
+      padding:16px 8px;
+      border-radius:16px;
+      text-align:center;
+    }
+
+    .item small{
+      display:block;
+      margin-bottom:8px;
+      color:var(--muted);
+    }
+
+    .item strong{
+      font-size:17px;
+    }
+
+    .green{
+      color:var(--green);
+    }
+
+    .red{
+      color:var(--red);
+    }
+
+    .yellow{
+      color:var(--yellow);
+    }
+
+    label{
+      display:block;
+      font-weight:bold;
+      margin:15px 0 7px;
+    }
+
+    input,
+    select,
+    textarea{
+      width:100%;
+      padding:14px;
+      border:1px solid #cbd5e1;
+      border-radius:13px;
+      font-size:16px;
+      background:white;
+    }
+
+    textarea{
+      min-height:85px;
+      resize:vertical;
+    }
+
+    .two-column{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:10px;
+    }
+
+    .primary-button,
+    .secondary-button,
+    .danger-button{
+      width:100%;
+      padding:14px;
+      margin-top:14px;
+      border-radius:13px;
+      font-size:16px;
+      font-weight:bold;
+    }
+
+    .primary-button{
+      border:0;
+      background:var(--blue);
+      color:white;
+    }
+
+    .secondary-button{
+      border:1px solid #cbd5e1;
+      background:white;
+      color:#183153;
+    }
+
+    .danger-button{
+      border:0;
+      background:#fff0f0;
+      color:#c62828;
+    }
+
+    .page{
+      display:none;
+    }
+
+    .page.active{
+      display:block;
+    }
+
+    .data-row{
+      border:1px solid #e1e7f0;
+      border-radius:16px;
+      padding:14px;
+      margin-bottom:12px;
+    }
+
+    .data-row-header{
+      display:flex;
+      justify-content:space-between;
+      gap:10px;
+      align-items:flex-start;
+    }
+
+    .data-title{
+      font-weight:bold;
+      font-size:17px;
+    }
+
+    .data-detail{
+      color:var(--muted);
+      font-size:14px;
+      line-height:1.5;
+      margin-top:7px;
+    }
+
+    .data-total{
+      font-weight:bold;
+      color:var(--blue);
+      text-align:right;
+    }
+
+    .small-delete{
+      border:0;
+      background:#fff0f0;
+      color:#c62828;
+      border-radius:9px;
+      padding:8px 10px;
+      margin-top:10px;
+    }
+
+    .empty{
+      text-align:center;
+      color:#7a8494;
+      padding:24px 8px;
+    }
+
+    .status{
+      display:inline-block;
+      padding:5px 9px;
+      border-radius:999px;
+      font-size:12px;
+      font-weight:bold;
+    }
+
+    .status-safe{
+      background:#dcfce7;
+      color:#166534;
+    }
+
+    .status-warning{
+      background:#fef3c7;
+      color:#92400e;
+    }
+
+    .status-over{
+      background:#fee2e2;
+      color:#991b1b;
+    }
+
+    .bottom-menu{
+      position:fixed;
+      left:0;
+      right:0;
+      bottom:0;
+      display:flex;
+      justify-content:space-around;
+      background:white;
+      padding:9px 5px 15px;
+      box-shadow:0 -5px 20px rgba(0,0,0,.10);
+      z-index:20;
+    }
+
+    .bottom-menu button{
+      border:0;
+      background:transparent;
+      color:var(--muted);
+      padding:10px 8px;
+      font-size:12px;
+      border-radius:13px;
+    }
+
+    .bottom-menu button.active{
+      background:#e7f0ff;
+      color:var(--blue);
+      font-weight:bold;
+    }
+
+    @media(max-width:380px){
+      .header h1{
+        font-size:24px;
+      }
+
+      .bottom-menu button{
+        font-size:11px;
+        padding:9px 5px;
+      }
+    }
+  </style>
 </head>
+
 <body>
-<header class="header">
-  <h1>KBU Cost Control</h1>
-  <p>Dashboard Direktur</p>
-  <div class="badge">V1.3 • Realisasi & Tracking Aktif</div>
+  <header class="header">
+    <h1>KBU Cost Control Pro</h1>
+    <p>Dashboard Direktur PT KALTIM BUMI UNGGUL</p>
+
+    <div class="badge">
+        V1.4 Lite
+    </div>
 </header>
 
 <main class="container">
+
+<!-- DASHBOARD -->
+
 <section id="dashboardPage" class="page active">
-  <div class="card">
-    <h2>Dashboard Ringkas</h2>
-    <div class="grid">
-      <div class="item"><small>Nilai Kontrak</small><strong id="nilaiKontrak">Rp0</strong></div>
-      <div class="item"><small>Target Tonase</small><strong id="targetTonase">0 Ton</strong></div>
-      <div class="item"><small>Budget HPP</small><strong id="budgetHpp">Rp0</strong></div>
-      <div class="item"><small>Realisasi</small><strong id="totalRealisasi">Rp0</strong></div>
-      <div class="item"><small>Sisa Budget</small><strong id="selisihBudget">Rp0</strong></div>
-      <div class="item"><small>Profit Aktual</small><strong id="profitAktual">Rp0</strong></div>
-      <div class="item"><small>HPP Aktual/Ton</small><strong id="hppAktualTon">Rp0</strong></div>
-      <div class="item"><small>Margin Aktual</small><strong id="marginAktual">0%</strong></div>
-    </div>
-  </div>
 
-  <div class="card">
-    <h2>Proyek Aktif</h2>
-    <div id="projectSummary" class="empty">Belum ada data proyek.</div>
-  </div>
+<div class="card">
 
-  <div class="card">
-    <h2>Status Cost Control</h2>
-    <div id="statusCost" class="empty">Belum ada data.</div>
-  </div>
+<h2>Dashboard</h2>
+
+<div class="grid">
+
+<div class="item">
+<small>Nilai Kontrak</small>
+<strong id="dashboardKontrak">Rp0</strong>
+</div>
+
+<div class="item">
+<small>Target Tonase</small>
+<strong id="dashboardTonase">0 Ton</strong>
+</div>
+
+<div class="item">
+<small>Total Budget</small>
+<strong id="dashboardBudget">Rp0</strong>
+</div>
+
+<div class="item">
+<small>Total Realisasi</small>
+<strong id="dashboardRealisasi">Rp0</strong>
+</div>
+
+<div class="item">
+<small>Profit</small>
+<strong id="dashboardProfit" class="green">
+Rp0
+</strong>
+</div>
+
+<div class="item">
+<small>Margin</small>
+<strong id="dashboardMargin">
+0%
+</strong>
+</div>
+
+</div>
+
+</div>
+
+<div class="card">
+
+<h2>Ringkasan Proyek</h2>
+
+<div id="ringkasanProyek" class="empty">
+
+Belum ada proyek aktif.
+
+</div>
+
+</div>
+
 </section>
+
+<!-- DATA PROYEK -->
 
 <section id="projectPage" class="page">
-  <div class="card">
-    <h2>Data Proyek & Kontrak</h2>
-    <label>Nama Proyek</label>
-    <input id="namaProyek" placeholder="Loading Ban Maloy–Cilegon">
-    <label>Pemberi Kerja / Klien</label>
-    <input id="klien" placeholder="Contoh: Mr Chen">
-    <label>Nomor Kontrak</label>
-    <input id="nomorKontrak" placeholder="001/KBU/VII/2026">
-    <label>Target Tonase</label>
-    <input id="tonase" type="number" inputmode="decimal" placeholder="3000">
-    <label>Harga Jual per Ton</label>
-    <input id="hargaJual" type="number" inputmode="numeric" placeholder="1015000">
-    <button class="primary" onclick="simpanProyek()">Simpan Data Proyek</button>
-    <button class="danger" onclick="hapusProyek()">Hapus Data Proyek</button>
-  </div>
+
+<div class="card">
+
+<h2>Data Proyek</h2>
+
+<label>Nama Proyek</label>
+
+<input
+id="projectNama"
+placeholder="Loading Ban Maloy - Cilegon">
+
+<label>Klien</label>
+
+<input
+id="projectKlien"
+placeholder="Mr Chen">
+
+<label>Nomor Kontrak</label>
+
+<input
+id="projectKontrak">
+
+<label>Target Tonase</label>
+
+<input
+id="projectTonase"
+type="number">
+
+<label>Harga Jual / Ton</label>
+
+<input
+id="projectHarga"
+type="number">
+
+<button
+class="primary-button"
+onclick="simpanProyek()">
+
+Simpan Data Proyek
+
+</button>
+
+</div>
+
 </section>
+<!-- ========================= -->
+<!-- BUDGET HPP -->
+<!-- ========================= -->
 
 <section id="hppPage" class="page">
-  <div class="card">
-    <h2>Input Budget HPP</h2>
-    <label>Komponen Biaya</label>
-    <input id="hppKomponen" placeholder="Contoh: Harga Beli Ban">
-    <label>Jenis Perhitungan</label>
-    <select id="hppJenis" onchange="aturKolomHpp()">
-      <option value="per_ton">Per Ton</option>
-      <option value="per_rit">Per Rit</option>
-      <option value="per_hari">Per Hari</option>
-      <option value="per_jam_hari">Per Jam × Hari</option>
-      <option value="per_unit">Per Unit</option>
-      <option value="lumpsum">Lumpsum</option>
-    </select>
-    <div id="normalQty">
-      <label id="qtyLabel">Jumlah Ton</label>
-      <input id="hppQty" type="number" inputmode="decimal" placeholder="3000">
-    </div>
-    <div id="hariGroup" style="display:none">
-      <div class="two">
-        <div><label>Jam per Hari</label><input id="hppJam" type="number" inputmode="decimal" placeholder="10"></div>
-        <div><label>Jumlah Hari</label><input id="hppHari" type="number" inputmode="decimal" placeholder="6"></div>
-      </div>
-    </div>
-    <label>Harga / Tarif Satuan</label>
-    <input id="hppHarga" type="number" inputmode="numeric" placeholder="540000">
-    <button class="primary" onclick="tambahHpp()">+ Tambah Budget HPP</button>
-  </div>
 
-  <div class="card">
-    <h2>Daftar Budget HPP</h2>
-    <div id="hppList" class="empty">Belum ada komponen HPP.</div>
-    <button class="danger" onclick="hapusSemuaHpp()">Hapus Semua HPP</button>
-  </div>
+<div class="card">
+
+<h2>Budget HPP</h2>
+
+<label>Nama Komponen</label>
+
+<input
+id="hppNama"
+placeholder="Contoh : Harga Beli Ban">
+
+<label>Jenis Perhitungan</label>
+
+<select id="hppJenis">
+
+<option value="ton">
+Per Ton
+</option>
+
+<option value="rit">
+Per Rit
+</option>
+
+<option value="hari">
+Per Hari
+</option>
+
+<option value="jamhari">
+Per Jam × Hari
+</option>
+
+<option value="unit">
+Per Unit
+</option>
+
+<option value="lumpsum">
+Lumpsum
+</option>
+
+</select>
+
+<label>Qty</label>
+
+<input
+id="hppQty"
+type="number"
+placeholder="3000">
+
+<label>Harga Satuan</label>
+
+<input
+id="hppHarga"
+type="number"
+placeholder="540000">
+
+<button
+class="primary-button"
+onclick="tambahHPP()">
+
+Tambah Budget
+
+</button>
+
+</div>
+
+<div class="card">
+
+<h2>Daftar Budget</h2>
+
+<div id="hppList">
+
+<div class="empty">
+
+Belum ada Budget HPP.
+
+</div>
+
+</div>
+
+</div>
+
 </section>
+
+<!-- ========================= -->
+<!-- REALISASI -->
+<!-- ========================= -->
 
 <section id="realisasiPage" class="page">
-  <div class="card">
-    <h2>Input Realisasi Biaya</h2>
-    <label>Tanggal</label>
-    <input id="realTanggal" type="date">
-    <label>Komponen HPP</label>
-    <select id="realKomponen"></select>
-    <label>Supplier / Penerima</label>
-    <input id="realSupplier" placeholder="Nama supplier atau penerima">
-    <label>Qty Aktual</label>
-    <input id="realQty" type="number" inputmode="decimal" placeholder="Contoh: 100">
-    <label>Harga Aktual per Satuan</label>
-    <input id="realHarga" type="number" inputmode="numeric" placeholder="Contoh: 560000">
-    <label>Keterangan</label>
-    <textarea id="realKeterangan" placeholder="Catatan transaksi"></textarea>
-    <button class="primary" onclick="tambahRealisasi()">+ Simpan Realisasi</button>
-    <div class="info">Total aktual = Qty Aktual × Harga Aktual.</div>
-  </div>
 
-  <div class="card">
-    <h2>Riwayat Realisasi</h2>
-    <div id="realisasiList" class="empty">Belum ada realisasi.</div>
-    <button class="danger" onclick="hapusSemuaRealisasi()">Hapus Semua Realisasi</button>
-  </div>
-</section>
+<div class="card">
+
+<h2>Input Realisasi</h2>
+
+<label>Tanggal</label>
+
+<input
+id="realTanggal"
+type="date">
+
+<label>Komponen</label>
+
+<select id="realKomponen">
+
+</select>
+
+<label>Supplier</label>
+
+<input
+id="realSupplier"
+placeholder="Nama Supplier">
+
+<label>Qty Aktual</label>
+
+<input
+id="realQty"
+type="number">
+
+<label>Harga Aktual</label>
+
+<input
+id="realHarga"
+type="number">
+
+<label>Keterangan</label>
+
+<textarea
+id="realKeterangan">
+
+</textarea>
+
+<button
+class="primary-button"
+onclick="tambahRealisasi()">
+
+Simpan Realisasi
+
+</button>
+
+</div>
+
+<div class="card">
+
+<h2>Daftar Realisasi</h2>
+
+<div id="realisasiList">
+
+<div class="empty">
+
+Belum ada transaksi.
+
+</div>
+
+</div>
+
+</div>
+
+  </section>
+  <!-- ========================= -->
+<!-- TRACKING -->
+<!-- ========================= -->
 
 <section id="trackingPage" class="page">
-  <div class="card">
-    <h2>Tracking Budget vs Aktual</h2>
-    <div class="scroll"><div id="trackingList" class="empty">Belum ada data tracking.</div></div>
-  </div>
+
+<div class="card">
+
+<h2>Tracking Budget vs Realisasi</h2>
+
+<div id="trackingList">
+
+<div class="empty">
+Belum ada data tracking.
+</div>
+
+</div>
+
+</div>
+
 </section>
+
 </main>
 
-<nav class="menu">
-  <button id="btnDashboard" class="active" onclick="bukaHalaman('dashboard')">Dashboard</button>
-  <button id="btnProject" onclick="bukaHalaman('project')">Proyek</button>
-  <button id="btnHpp" onclick="bukaHalaman('hpp')">HPP</button>
-  <button id="btnRealisasi" onclick="bukaHalaman('realisasi')">Realisasi</button>
-  <button id="btnTracking" onclick="bukaHalaman('tracking')">Tracking</button>
+<!-- ========================= -->
+<!-- MENU BAWAH -->
+<!-- ========================= -->
+
+<nav class="bottom-menu">
+
+<button
+id="menuDashboard"
+class="active"
+onclick="bukaHalaman('dashboard')">
+
+Dashboard
+
+</button>
+
+<button
+id="menuProject"
+onclick="bukaHalaman('project')">
+
+Proyek
+
+</button>
+
+<button
+id="menuHpp"
+onclick="bukaHalaman('hpp')">
+
+HPP
+
+</button>
+
+<button
+id="menuRealisasi"
+onclick="bukaHalaman('realisasi')">
+
+Realisasi
+
+</button>
+
+<button
+id="menuTracking"
+onclick="bukaHalaman('tracking')">
+
+Tracking
+
+</button>
+
 </nav>
 
 <script>
-const rupiah = angka => new Intl.NumberFormat("id-ID",{style:"currency",currency:"IDR",maximumFractionDigits:0}).format(Number(angka)||0);
-const angkaIndonesia = angka => new Intl.NumberFormat("id-ID",{maximumFractionDigits:2}).format(Number(angka)||0);
-const getData = (k,d) => JSON.parse(localStorage.getItem(k) || JSON.stringify(d));
-const setData = (k,v) => localStorage.setItem(k,JSON.stringify(v));
-const bacaProyek = () => getData("kbu_project",null);
-const bacaHpp = () => getData("kbu_hpp",[]);
-const bacaRealisasi = () => getData("kbu_realisasi",[]);
+
+const formatRupiah = angka => {
+
+return new Intl.NumberFormat(
+"id-ID",
+{
+style:"currency",
+currency:"IDR",
+maximumFractionDigits:0
+}
+).format(Number(angka) || 0);
+
+};
+
+const formatAngka = angka => {
+
+return new Intl.NumberFormat(
+"id-ID",
+{
+maximumFractionDigits:2
+}
+).format(Number(angka) || 0);
+
+};
+
+function ambilData(kunci, nilaiAwal){
+
+return JSON.parse(
+localStorage.getItem(kunci) ||
+JSON.stringify(nilaiAwal)
+);
+
+}
+
+function simpanData(kunci, data){
+
+localStorage.setItem(
+kunci,
+JSON.stringify(data)
+);
+
+}
+
+function ambilProyek(){
+
+return ambilData(
+"kbu_project",
+null
+);
+
+}
+
+function ambilHpp(){
+
+return ambilData(
+"kbu_hpp",
+[]
+);
+
+}
+
+function ambilRealisasi(){
+
+return ambilData(
+"kbu_realisasi",
+[]
+);
+
+}
 
 function bukaHalaman(nama){
-  document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
-  document.querySelectorAll(".menu button").forEach(b=>b.classList.remove("active"));
-  const map={
-    dashboard:["dashboardPage","btnDashboard"],
-    project:["projectPage","btnProject"],
-    hpp:["hppPage","btnHpp"],
-    realisasi:["realisasiPage","btnRealisasi"],
-    tracking:["trackingPage","btnTracking"]
-  };
-  document.getElementById(map[nama][0]).classList.add("active");
-  document.getElementById(map[nama][1]).classList.add("active");
-  window.scrollTo({top:0,behavior:"smooth"});
-}
 
+document
+.querySelectorAll(".page")
+.forEach(halaman => {
+
+halaman.classList.remove("active");
+
+});
+
+document
+.querySelectorAll(".bottom-menu button")
+.forEach(tombol => {
+
+tombol.classList.remove("active");
+
+});
+
+const daftarHalaman = {
+
+dashboard:[
+"dashboardPage",
+"menuDashboard"
+],
+
+project:[
+"projectPage",
+"menuProject"
+],
+
+hpp:[
+"hppPage",
+"menuHpp"
+],
+
+realisasi:[
+"realisasiPage",
+"menuRealisasi"
+],
+
+tracking:[
+"trackingPage",
+"menuTracking"
+]
+
+};
+
+document
+.getElementById(
+daftarHalaman[nama][0]
+)
+.classList
+.add("active");
+
+document
+.getElementById(
+daftarHalaman[nama][1]
+)
+.classList
+.add("active");
+
+window.scrollTo({
+top:0,
+behavior:"smooth"
+});
+
+}
 function simpanProyek(){
-  const data={
-    namaProyek:namaProyek.value.trim(),
-    klien:klien.value.trim(),
-    nomorKontrak:nomorKontrak.value.trim(),
-    tonase:Number(tonase.value||0),
-    hargaJual:Number(hargaJual.value||0)
-  };
-  if(!data.namaProyek || data.tonase<=0 || data.hargaJual<=0){
-    alert("Nama proyek, tonase, dan harga jual wajib diisi.");
-    return;
-  }
-  setData("kbu_project",data);
-  tampilkanSemua();
-  alert("Data proyek berhasil disimpan.");
-  bukaHalaman("dashboard");
+
+const data = {
+
+namaProyek:
+document
+.getElementById("projectNama")
+.value
+.trim(),
+
+klien:
+document
+.getElementById("projectKlien")
+.value
+.trim(),
+
+nomorKontrak:
+document
+.getElementById("projectKontrak")
+.value
+.trim(),
+
+tonase:
+Number(
+document
+.getElementById("projectTonase")
+.value || 0
+),
+
+hargaJual:
+Number(
+document
+.getElementById("projectHarga")
+.value || 0
+)
+
+};
+
+if(
+!data.namaProyek ||
+data.tonase <= 0 ||
+data.hargaJual <= 0
+){
+
+alert(
+"Nama proyek, target tonase, dan harga jual wajib diisi."
+);
+
+return;
+
 }
 
-function hapusProyek(){
-  if(confirm("Hapus data proyek?")){
-    localStorage.removeItem("kbu_project");
-    location.reload();
-  }
+simpanData(
+"kbu_project",
+data
+);
+
+tampilkanSemua();
+
+alert(
+"Data proyek berhasil disimpan."
+);
+
+bukaHalaman("dashboard");
+
 }
 
-function aturKolomHpp(){
-  const jenis=hppJenis.value;
-  normalQty.style.display="block";
-  hariGroup.style.display="none";
-  qtyLabel.textContent={
-    per_ton:"Jumlah Ton",
-    per_rit:"Jumlah Rit",
-    per_hari:"Jumlah Hari",
-    per_unit:"Jumlah Unit",
-    lumpsum:"Qty"
-  }[jenis] || "Qty";
-  if(jenis==="lumpsum") hppQty.value=1;
-  if(jenis==="per_jam_hari"){
-    normalQty.style.display="none";
-    hariGroup.style.display="block";
-  }
+function tambahHPP(){
+
+const nama = document
+.getElementById("hppNama")
+.value
+.trim();
+
+const jenis = document
+.getElementById("hppJenis")
+.value;
+
+const qty = Number(
+document
+.getElementById("hppQty")
+.value || 0
+);
+
+const harga = Number(
+document
+.getElementById("hppHarga")
+.value || 0
+);
+
+if(
+!nama ||
+qty <= 0 ||
+harga <= 0
+){
+
+alert(
+"Nama komponen, qty, dan harga wajib diisi."
+);
+
+return;
+
 }
 
-function namaJenis(jenis){
-  return {
-    per_ton:"Per Ton",
-    per_rit:"Per Rit",
-    per_hari:"Per Hari",
-    per_jam_hari:"Per Jam × Hari",
-    per_unit:"Per Unit",
-    lumpsum:"Lumpsum"
-  }[jenis] || jenis;
-}
+const total = qty * harga;
 
-function tambahHpp(){
-  const komponen=hppKomponen.value.trim();
-  const jenis=hppJenis.value;
-  const harga=Number(hppHarga.value||0);
-  const qty=Number(hppQty.value||0);
-  const jam=Number(hppJam.value||0);
-  const hari=Number(hppHari.value||0);
-  const total=jenis==="per_jam_hari" ? jam*hari*harga : qty*harga;
+const data = ambilHpp();
 
-  if(!komponen || total<=0){
-    alert("Lengkapi komponen dan nilai HPP.");
-    return;
-  }
+data.push({
 
-  const data=bacaHpp();
-  data.push({id:Date.now(),komponen,jenis,harga,qty,jam,hari,total});
-  setData("kbu_hpp",data);
+id:Date.now(),
 
-  hppKomponen.value="";
-  hppQty.value="";
-  hppJam.value="";
-  hppHari.value="";
-  hppHarga.value="";
-  tampilkanSemua();
-}
+nama:nama,
 
-function hapusHpp(id){
-  if(confirm("Hapus komponen HPP ini?")){
-    setData("kbu_hpp",bacaHpp().filter(x=>x.id!==id));
-    tampilkanSemua();
-  }
-}
+jenis:jenis,
 
-function hapusSemuaHpp(){
-  if(confirm("Hapus semua Budget HPP?")){
-    localStorage.removeItem("kbu_hpp");
-    tampilkanSemua();
-  }
+qty:qty,
+
+harga:harga,
+
+total:total
+
+});
+
+simpanData(
+"kbu_hpp",
+data
+);
+
+document
+.getElementById("hppNama")
+.value = "";
+
+document
+.getElementById("hppQty")
+.value = "";
+
+document
+.getElementById("hppHarga")
+.value = "";
+
+tampilkanSemua();
+
+alert(
+"Budget HPP berhasil ditambahkan."
+);
+
 }
 
 function tambahRealisasi(){
-  const hppId=Number(realKomponen.value);
-  const tanggal=realTanggal.value;
-  const supplier=realSupplier.value.trim();
-  const qty=Number(realQty.value||0);
-  const harga=Number(realHarga.value||0);
-  const keterangan=realKeterangan.value.trim();
-  const komponen=bacaHpp().find(x=>x.id===hppId);
 
-  if(!komponen || !tanggal || qty<=0 || harga<=0){
-    alert("Tanggal, komponen, qty, dan harga aktual wajib diisi.");
-    return;
-  }
+const hppId = Number(
+document
+.getElementById("realKomponen")
+.value
+);
 
-  const data=bacaRealisasi();
-  data.push({
-    id:Date.now(),
-    hppId,
-    komponen:komponen.komponen,
-    tanggal,
-    supplier,
-    qty,
-    harga,
-    total:qty*harga,
-    keterangan
-  });
-  setData("kbu_realisasi",data);
+const tanggal = document
+.getElementById("realTanggal")
+.value;
 
-  realSupplier.value="";
-  realQty.value="";
-  realHarga.value="";
-  realKeterangan.value="";
-  tampilkanSemua();
-  alert("Realisasi berhasil disimpan.");
+const supplier = document
+.getElementById("realSupplier")
+.value
+.trim();
+
+const qty = Number(
+document
+.getElementById("realQty")
+.value || 0
+);
+
+const harga = Number(
+document
+.getElementById("realHarga")
+.value || 0
+);
+
+const keterangan = document
+.getElementById("realKeterangan")
+.value
+.trim();
+
+const daftarHpp = ambilHpp();
+
+const komponen = daftarHpp.find(
+item => item.id === hppId
+);
+
+if(
+!komponen ||
+!tanggal ||
+qty <= 0 ||
+harga <= 0
+){
+
+alert(
+"Tanggal, komponen, qty, dan harga aktual wajib diisi."
+);
+
+return;
+
+}
+
+const total = qty * harga;
+
+const data = ambilRealisasi();
+
+data.push({
+
+id:Date.now(),
+
+hppId:hppId,
+
+namaKomponen:
+komponen.nama,
+
+tanggal:tanggal,
+
+supplier:supplier,
+
+qty:qty,
+
+harga:harga,
+
+total:total,
+
+keterangan:keterangan
+
+});
+
+simpanData(
+"kbu_realisasi",
+data
+);
+
+document
+.getElementById("realSupplier")
+.value = "";
+
+document
+.getElementById("realQty")
+.value = "";
+
+document
+.getElementById("realHarga")
+.value = "";
+
+document
+.getElementById("realKeterangan")
+.value = "";
+
+tampilkanSemua();
+
+alert(
+"Realisasi berhasil disimpan."
+);
+
+}
+
+function hapusHPP(id){
+
+const yakin = confirm(
+"Hapus komponen Budget HPP ini?"
+);
+
+if(!yakin){
+
+return;
+
+}
+
+const dataBaru = ambilHpp()
+.filter(
+item => item.id !== id
+);
+
+simpanData(
+"kbu_hpp",
+dataBaru
+);
+
+const realisasiBaru =
+ambilRealisasi()
+.filter(
+item => item.hppId !== id
+);
+
+simpanData(
+"kbu_realisasi",
+realisasiBaru
+);
+
+tampilkanSemua();
+
 }
 
 function hapusRealisasi(id){
-  if(confirm("Hapus transaksi ini?")){
-    setData("kbu_realisasi",bacaRealisasi().filter(x=>x.id!==id));
-    tampilkanSemua();
-  }
+
+const yakin = confirm(
+"Hapus transaksi realisasi ini?"
+);
+
+if(!yakin){
+
+return;
+
 }
 
-function hapusSemuaRealisasi(){
-  if(confirm("Hapus semua realisasi?")){
-    localStorage.removeItem("kbu_realisasi");
-    tampilkanSemua();
-  }
-}
+const dataBaru =
+ambilRealisasi()
+.filter(
+item => item.id !== id
+);
 
-function tampilkanSemua(){
-  const proyek=bacaProyek();
-  const hpp=bacaHpp();
-  const realisasi=bacaRealisasi();
+simpanData(
+"kbu_realisasi",
+dataBaru
+);
 
-  if(proyek){
-    namaProyek.value=proyek.namaProyek||"";
-    klien.value=proyek.klien||"";
-    nomorKontrak.value=proyek.nomorKontrak||"";
-    tonase.value=proyek.tonase||"";
-    hargaJual.value=proyek.hargaJual||"";
-  }
-
-  hppList.className=hpp.length ? "" : "empty";
-  hppList.innerHTML=hpp.length ? hpp.map(x=>`
-    <div class="row-card">
-      <div class="row-head">
-        <div>
-          <div class="row-title">${x.komponen}</div>
-          <div class="row-detail">
-            ${namaJenis(x.jenis)}<br>
-            ${x.jenis==="per_jam_hari"
-              ? `${angkaIndonesia(x.jam)} jam × ${angkaIndonesia(x.hari)} hari × ${rupiah(x.harga)}`
-              : `${angkaIndonesia(x.qty)} × ${rupiah(x.harga)}`
-            }
-          </div>
-        </div>
-        <div class="row-total">${rupiah(x.total)}</div>
-      </div>
-      <button class="small-delete" onclick="hapusHpp(${x.id})">Hapus</button>
-    </div>`).join("") : "Belum ada komponen HPP.";
-
-  realKomponen.innerHTML=hpp.length
-    ? `<option value="">Pilih komponen</option>` + hpp.map(x=>`<option value="${x.id}">${x.komponen}</option>`).join("")
-    : `<option value="">Belum ada HPP</option>`;
-
-  realisasiList.className=realisasi.length ? "" : "empty";
-  realisasiList.innerHTML=realisasi.length ? realisasi.slice().reverse().map(x=>`
-    <div class="row-card">
-      <div class="row-head">
-        <div>
-          <div class="row-title">${x.komponen}</div>
-          <div class="row-detail">
-            ${x.tanggal}<br>
-            ${x.supplier||"-"}<br>
-            ${angkaIndonesia(x.qty)} × ${rupiah(x.harga)}
-            ${x.keterangan ? `<br>${x.keterangan}` : ""}
-          </div>
-        </div>
-        <div class="row-total">${rupiah(x.total)}</div>
-      </div>
-      <button class="small-delete" onclick="hapusRealisasi(${x.id})">Hapus</button>
-    </div>`).join("") : "Belum ada realisasi.";
-
-  const tracking=hpp.map(x=>{
-    const aktual=realisasi.filter(y=>y.hppId===x.id).reduce((s,y)=>s+y.total,0);
-    const selisih=aktual-x.total;
-    const persen=x.total ? aktual/x.total*100 : 0;
-    return {...x,aktual,selisih,persen};
-  });
-
-  trackingList.className=tracking.length ? "" : "empty";
-  trackingList.innerHTML=tracking.length ? `
-    <table class="track-table">
-      <thead>
-        <tr>
-          <th>Komponen</th>
-          <th class="text-right">Budget</th>
-          <th class="text-right">Aktual</th>
-          <th class="text-right">Selisih</th>
-        </tr>
-      </thead>
-      <tbody>
-        ${tracking.map(x=>{
-          let cls=x.selisih>0?"status-red":x.persen>=90?"status-yellow":"status-green";
-          let txt=x.selisih>0?"OVER":x.persen>=90?"WASPADA":"AMAN";
-          return `
-            <tr>
-              <td><b>${x.komponen}</b><br><span class="status ${cls}">${txt}</span></td>
-              <td class="text-right">${rupiah(x.total)}</td>
-              <td class="text-right">${rupiah(x.aktual)}</td>
-              <td class="text-right ${x.selisih>0?"red":"green"}">${x.selisih>0?"+":""}${rupiah(x.selisih)}</td>
-            </tr>`;
-        }).join("")}
-      </tbody>
-    </table>` : "Belum ada data tracking.";
-
-  const totalBudget=hpp.reduce((s,x)=>s+x.total,0);
-  const totalAktual=realisasi.reduce((s,x)=>s+x.total,0);
-  const nilaiKontrak=proyek ? proyek.tonase*proyek.hargaJual : 0;
-  const tonaseAktual=proyek ? proyek.tonase : 0;
-  const sisa=totalBudget-totalAktual;
-  const profit=nilaiKontrak-totalAktual;
-  const hppTon=tonaseAktual ? totalAktual/tonaseAktual : 0;
-  const margin=nilaiKontrak ? profit/nilaiKontrak*100 : 0;
-
-  nilaiKontrak.textContent=rupiah(nilaiKontrak);
-  targetTonase.textContent=angkaIndonesia(tonaseAktual)+" Ton";
-  budgetHpp.textContent=rupiah(totalBudget);
-  totalRealisasi.textContent=rupiah(totalAktual);
-  selisihBudget.textContent=rupiah(sisa);
-  selisihBudget.className=sisa>=0?"green":"red";
-  profitAktual.textContent=rupiah(profit);
-  profitAktual.className=profit>=0?"green":"red";
-  hppAktualTon.textContent=rupiah(hppTon);
-  marginAktual.textContent=margin.toFixed(2)+"%";
-
-  projectSummary.innerHTML=proyek ? `
-    <strong style="font-size:18px">${proyek.namaProyek}</strong>
-    <p>Klien: ${proyek.klien||"-"}</p>
-    <p>Nomor Kontrak: ${proyek.nomorKontrak||"-"}</p>
-    <p>Harga Jual: ${rupiah(proyek.hargaJual)} / Ton</p>` : "Belum ada data proyek.";
-
-  const persen=totalBudget ? totalAktual/totalBudget*100 : 0;
-  const cls=persen>100?"status-red":persen>=90?"status-yellow":"status-green";
-  const txt=persen>100?"OVER BUDGET":persen>=90?"WASPADA":"AMAN";
-  statusCost.innerHTML=totalBudget ? `
-    <div style="font-size:20px;font-weight:bold">${persen.toFixed(2)}% budget terpakai</div>
-    <span class="status ${cls}">${txt}</span>
-    <p>Sisa/kelebihan budget: <b>${rupiah(sisa)}</b></p>` : "Belum ada Budget HPP.";
-}
-
-realTanggal.value=new Date().toISOString().slice(0,10);
-aturKolomHpp();
 tampilkanSemua();
+
+}
+
+function namaJenis(jenis){
+
+const daftar = {
+
+ton:"Per Ton",
+
+rit:"Per Rit",
+
+hari:"Per Hari",
+
+jamhari:"Per Jam × Hari",
+
+unit:"Per Unit",
+
+lumpsum:"Lumpsum"
+
+};
+
+return daftar[jenis] || jenis;
+
+  }
+  function tampilkanSemua(){
+
+const proyek = ambilProyek();
+
+const daftarHpp = ambilHpp();
+
+const daftarRealisasi =
+ambilRealisasi();
+
+let nilaiKontrak = 0;
+
+let targetTonase = 0;
+
+if(proyek){
+
+nilaiKontrak =
+proyek.tonase *
+proyek.hargaJual;
+
+targetTonase =
+proyek.tonase;
+
+document
+.getElementById("projectNama")
+.value =
+proyek.namaProyek || "";
+
+document
+.getElementById("projectKlien")
+.value =
+proyek.klien || "";
+
+document
+.getElementById("projectKontrak")
+.value =
+proyek.nomorKontrak || "";
+
+document
+.getElementById("projectTonase")
+.value =
+proyek.tonase || "";
+
+document
+.getElementById("projectHarga")
+.value =
+proyek.hargaJual || "";
+
+}
+
+const totalBudget =
+daftarHpp.reduce(
+
+(total,item) =>
+total +
+Number(item.total || 0),
+
+0
+
+);
+
+const totalRealisasi =
+daftarRealisasi.reduce(
+
+(total,item) =>
+total +
+Number(item.total || 0),
+
+0
+
+);
+
+const profit =
+nilaiKontrak -
+totalRealisasi;
+
+const margin =
+nilaiKontrak > 0
+
+? (
+profit /
+nilaiKontrak
+) * 100
+
+: 0;
+
+document
+.getElementById("dashboardKontrak")
+.textContent =
+formatRupiah(
+nilaiKontrak
+);
+
+document
+.getElementById("dashboardTonase")
+.textContent =
+formatAngka(
+targetTonase
+) + " Ton";
+
+document
+.getElementById("dashboardBudget")
+.textContent =
+formatRupiah(
+totalBudget
+);
+
+document
+.getElementById("dashboardRealisasi")
+.textContent =
+formatRupiah(
+totalRealisasi
+);
+
+document
+.getElementById("dashboardProfit")
+.textContent =
+formatRupiah(
+profit
+);
+
+document
+.getElementById("dashboardMargin")
+.textContent =
+margin.toFixed(2) + "%";
+
+document
+.getElementById("dashboardProfit")
+.className =
+profit >= 0
+
+? "green"
+
+: "red";
+
+if(proyek){
+
+document
+.getElementById("ringkasanProyek")
+.className = "";
+
+document
+.getElementById("ringkasanProyek")
+.innerHTML = `
+
+<strong style="font-size:18px">
+${proyek.namaProyek}
+</strong>
+
+<p>
+Klien:
+${proyek.klien || "-"}
+</p>
+
+<p>
+Nomor Kontrak:
+${proyek.nomorKontrak || "-"}
+</p>
+
+<p>
+Harga Jual:
+${formatRupiah(
+proyek.hargaJual
+)}
+/ Ton
+</p>
+
+`;
+
+}else{
+
+document
+.getElementById("ringkasanProyek")
+.className = "empty";
+
+document
+.getElementById("ringkasanProyek")
+.innerHTML =
+"Belum ada proyek aktif.";
+
+}
+
+const hppList =
+document
+.getElementById("hppList");
+
+if(
+daftarHpp.length === 0
+){
+
+hppList.innerHTML = `
+
+<div class="empty">
+
+Belum ada Budget HPP.
+
+</div>
+
+`;
+
+}else{
+
+hppList.innerHTML =
+daftarHpp
+.map(
+item => `
+
+<div class="data-row">
+
+<div class="data-row-header">
+
+<div>
+
+<div class="data-title">
+
+${item.nama}
+
+</div>
+
+<div class="data-detail">
+
+${namaJenis(
+item.jenis
+)}
+
+<br>
+
+${formatAngka(
+item.qty
+)}
+
+×
+
+${formatRupiah(
+item.harga
+)}
+
+</div>
+
+</div>
+
+<div class="data-total">
+
+${formatRupiah(
+item.total
+)}
+
+</div>
+
+</div>
+
+<button
+class="small-delete"
+onclick="hapusHPP(${item.id})">
+
+Hapus
+
+</button>
+
+</div>
+
+`
+)
+.join("");
+
+}
+
+const realKomponen =
+document
+.getElementById(
+"realKomponen"
+);
+
+if(
+daftarHpp.length === 0
+){
+
+realKomponen.innerHTML = `
+
+<option value="">
+
+Belum ada Budget HPP
+
+</option>
+
+`;
+
+}else{
+
+realKomponen.innerHTML = `
+
+<option value="">
+
+Pilih komponen
+
+</option>
+
+` +
+
+daftarHpp
+.map(
+item => `
+
+<option value="${item.id}">
+
+${item.nama}
+
+</option>
+
+`
+)
+.join("");
+
+}
+
+const realisasiList =
+document
+.getElementById(
+"realisasiList"
+);
+
+if(
+daftarRealisasi.length === 0
+){
+
+realisasiList.innerHTML = `
+
+<div class="empty">
+
+Belum ada transaksi.
+
+</div>
+
+`;
+
+}else{
+
+realisasiList.innerHTML =
+daftarRealisasi
+.slice()
+.reverse()
+.map(
+item => `
+
+<div class="data-row">
+
+<div class="data-row-header">
+
+<div>
+
+<div class="data-title">
+
+${item.namaKomponen}
+
+</div>
+
+<div class="data-detail">
+
+${item.tanggal}
+
+<br>
+
+Supplier:
+${item.supplier || "-"}
+
+<br>
+
+${formatAngka(
+item.qty
+)}
+
+×
+
+${formatRupiah(
+item.harga
+)}
+
+${item.keterangan
+? `<br>${item.keterangan}`
+: ""
+}
+
+</div>
+
+</div>
+
+<div class="data-total">
+
+${formatRupiah(
+item.total
+)}
+
+</div>
+
+</div>
+
+<button
+class="small-delete"
+onclick="hapusRealisasi(${item.id})">
+
+Hapus
+
+</button>
+
+</div>
+
+`
+)
+.join("");
+
+}
+
+const trackingList =
+document
+.getElementById(
+"trackingList"
+);
+
+if(
+daftarHpp.length === 0
+){
+
+trackingList.innerHTML = `
+
+<div class="empty">
+
+Belum ada data tracking.
+
+</div>
+
+`;
+
+}else{
+
+trackingList.innerHTML =
+daftarHpp
+.map(
+item => {
+
+const totalAktual =
+daftarRealisasi
+
+.filter(
+transaksi =>
+transaksi.hppId ===
+item.id
+)
+
+.reduce(
+
+(total,transaksi) =>
+total +
+Number(
+transaksi.total || 0
+),
+
+0
+
+);
+
+const selisih =
+totalAktual -
+item.total;
+
+const persen =
+item.total > 0
+
+? (
+totalAktual /
+item.total
+) * 100
+
+: 0;
+
+let statusText =
+"AMAN";
+
+let statusClass =
+"status-safe";
+
+if(
+persen >= 90 &&
+persen <= 100
+){
+
+statusText =
+"WASPADA";
+
+statusClass =
+"status-warning";
+
+}
+
+if(
+persen > 100
+){
+
+statusText =
+"OVER BUDGET";
+
+statusClass =
+"status-over";
+
+}
+
+return `
+
+<div class="data-row">
+
+<div class="data-title">
+
+${item.nama}
+
+</div>
+
+<div class="data-detail">
+
+Budget:
+${formatRupiah(
+item.total
+)}
+
+<br>
+
+Realisasi:
+${formatRupiah(
+totalAktual
+)}
+
+<br>
+
+Selisih:
+<span class="${
+selisih > 0
+? "red"
+: "green"
+}">
+
+${selisih > 0
+? "+"
+: ""
+}
+
+${formatRupiah(
+selisih
+)}
+
+</span>
+
+<br>
+
+Pemakaian Budget:
+${persen.toFixed(2)}%
+
+</div>
+
+<span class="status ${statusClass}">
+
+${statusText}
+
+</span>
+
+</div>
+
+`;
+
+}
+)
+.join("");
+
+}
+
+}
+
+document
+.getElementById("realTanggal")
+.value =
+new Date()
+.toISOString()
+.slice(0,10);
+
+tampilkanSemua();
+
 </script>
+
 </body>
-        </html>
-      
+</html>
